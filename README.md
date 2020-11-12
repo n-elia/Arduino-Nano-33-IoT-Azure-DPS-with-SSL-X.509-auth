@@ -463,4 +463,6 @@ warn_certs_not_for_production
 - The resulting certificate will be built with the private key of your Arduino, and certificed by the CA Authority (yourself).
 - Setup DPS with the CA-root or CA-intermediate certificate and use the registration sketch.
 
-Remember to add the Baltimore CA-root certificate to your WiFiNINA module, otherwise your Arduino won't be able to properly identify the Azure servers. [Here](https://support.arduino.cc/hc/en-us/articles/360016119219-How-to-add-certificates-to-Wifi-Nina-Wifi-101-Modules-) is the official tutorial for that.
+## Some warnings
+- Remember to add the Baltimore CA-root certificate to your WiFiNINA module, otherwise your Arduino won't be able to properly identify the Azure servers. [Here](https://support.arduino.cc/hc/en-us/articles/360016119219-How-to-add-certificates-to-Wifi-Nina-Wifi-101-Modules-) is the official tutorial for that.
+- Never use a self-signed certificate chain (i.e. never act as a CA) in a real-world production usecase.
