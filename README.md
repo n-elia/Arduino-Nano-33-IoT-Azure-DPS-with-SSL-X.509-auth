@@ -1,7 +1,7 @@
 # Arduino Nano 33 IoT Azure DPS with SSL X.509 auth
  Sketch to connect an Arduino Nano 33 IoT to the Azure IoT Device Provisioning Service over WiFi with an SSL-secured connection, and authentication based on X.509 certificates.
  
- The sketch is well-commented, I'll write a better readme in the future :)
+ It will always use the private key created and stored by the crypto chip of the Arduino Nano 33 IoT, and the self-signed certificate (individual enrollment) or the self-signed certificate signed by the CA-root certificate (group enrollment).
  
 ## Just a few hints
  - Read [this](https://docs.microsoft.com/en-us/azure/iot-dps/concepts-service#enrollment) before doing anything related to DPS and Arduino.
@@ -462,7 +462,9 @@ warn_certs_not_for_production
 - Copy the `.pem` CSR of the self-signed Arduino certificate (generated in the previous steps) into  the folder csr with an invented device name: `csr/<device_name>.csr.pem` . Then, use the modified script to sign it with the CA-intermediate certificate: `./certGen.sh sign_device_certificate <device_name>` .
 - The resulting certificate will be built with the private key of your Arduino, and certificed by the CA Authority (yourself).
 - Setup DPS with the CA-root or CA-intermediate certificate and use the registration sketch.
-
+- You can use Mosquitto or MQTT Explorer to test your certificate and parameters before moving to the Arduino.
+ The sketch is well-commented, I'll write a better readme in the future if I have time :)
+ 
 ## Some warnings
 - Remember to add the Baltimore CA-root certificate to your WiFiNINA module, otherwise your Arduino won't be able to properly identify the Azure servers. [Here](https://support.arduino.cc/hc/en-us/articles/360016119219-How-to-add-certificates-to-Wifi-Nina-Wifi-101-Modules-) is the official tutorial for that.
 - Never use a self-signed certificate chain (i.e. never act as a CA) in a real-world production usecase.
