@@ -1,3 +1,20 @@
+/*
+ * Azure IoT Device Provisioning Service registration tool
+ * This sketch securely connects to an Azure IoT DPS using MQTT over WiFi,
+ * secured by SSl. 
+ * It uses a private key stored in the built-in crypto chip and a CA signed 
+ * public certificate for SSL/TLS authetication.
+ * 
+ * It subscribes to a DPS topic to receive the response, and publishes a message
+ * to stard the device enrollment.
+ * 
+ * Boards:
+ * - Arduino Nano 33 IoT
+ * 
+ * Author: Nicola Elia
+ * GNU General Public License v3.0
+*/
+
 #include <ArduinoBearSSL.h>
 #include <ArduinoECCX08.h>
 #include <utility/ECCX08SelfSignedCert.h>
