@@ -469,3 +469,19 @@ warn_certs_not_for_production
 - Remember to add the Baltimore CA-root certificate to your WiFiNINA module, otherwise your Arduino won't be able to properly identify the Azure servers. [Here](https://support.arduino.cc/hc/en-us/articles/360016119219-How-to-add-certificates-to-Wifi-Nina-Wifi-101-Modules-) is the official tutorial for that.
 - Never use a self-signed certificate chain (i.e. never act as a CA) in a real-world production usecase.
 - If you want to use different tools for producing your certificate, use the same settings provided in the azure-iot-sdk-c toolkit, otherwise the certificate won't be 2Azure-compliant".
+
+## Sample output
+This is the serial monitor output when running the script with correct parameters and certificates:
+```
+19:28:06.876 -> Attempting to connect to SSID: *** .
+19:28:15.061 -> You're connected to the network
+19:28:15.061 -> 
+19:28:15.061 -> Attempting to MQTT broker: global.azure-devices-provisioning.net 
+19:28:20.604 -> connectError: -2
+19:28:25.908 -> connectError: -2
+19:28:30.055 -> 
+19:28:30.055 -> You're connected to the MQTT broker
+19:28:30.055 -> 
+19:28:30.147 -> Publishing message
+19:28:30.521 -> Received a message with topic '$dps/registrations/res/202/?$rid=1&retry-after=3'{"operationId":"***","status":"assigning"}
+```
