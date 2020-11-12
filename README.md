@@ -466,3 +466,4 @@ warn_certs_not_for_production
 ## Some warnings
 - Remember to add the Baltimore CA-root certificate to your WiFiNINA module, otherwise your Arduino won't be able to properly identify the Azure servers. [Here](https://support.arduino.cc/hc/en-us/articles/360016119219-How-to-add-certificates-to-Wifi-Nina-Wifi-101-Modules-) is the official tutorial for that.
 - Never use a self-signed certificate chain (i.e. never act as a CA) in a real-world production usecase.
+- If you want to use different tools for producing your certificate, use the same settings provided in the azure-iot-sdk-c toolkit, otherwise the certificate won't be 2Azure-compliant".
