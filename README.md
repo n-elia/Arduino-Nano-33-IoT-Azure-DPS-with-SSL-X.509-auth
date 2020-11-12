@@ -3,12 +3,12 @@
  
  The sketch is well-commented, I'll write a better readme in the future :)
  
- Just a few hints:
+## Just a few hints
  - Read [this](https://docs.microsoft.com/en-us/azure/iot-dps/concepts-service#enrollment) before doing anything related to DPS and Arduino.
- - Use the ECCX08SelfSignedCert.ino example sketch from the ECCX08 Library to issue a private key and a self-signed device certificate (remember the used crypto chip slots for putting them in the DPS registration sketch).
- - Use the ECCX08CSR.ino example sketch from the ECCX08 Library to issue a Certificate Signing Request (CSR), copy it and paste into a .pem file.
+ - Use the `ECCX08SelfSignedCert.ino` example sketch from the ECCX08 Library to issue a private key and a self-signed device certificate (remember the selected crypto chip slots for putting them in the DPS registration sketch).
+ - Use the `ECCX08CSR.ino` example sketch from the ECCX08 Library to issue a Certificate Signing Request (CSR), copy it and paste into a .pem file.
  - Use [this](https://github.com/Azure/azure-iot-sdk-c/blob/master/tools/CACertificates/CACertificateOverview.md) toolkit to create CA-root certificate, intermediate certificate. 
- - Then use this certGen.sh script instead of the original one:
+ - Then use this `certGen.sh` script instead of the original one:
 ```
  #!/bin/bash
 
@@ -459,7 +459,7 @@ fi
 
 warn_certs_not_for_production
 ```
-then, copy the .pem CSR of the self-signed Arduino certificate (generated in the previous steps) into  the folder csr with an invented device name: csr/<device_name>.csr.pem . Then, use the modified script to sign it with the CA-intermediate certificate: ./certGen.sh sign_device_certificate <device_name> .
+- Copy the `.pem` CSR of the self-signed Arduino certificate (generated in the previous steps) into  the folder csr with an invented device name: `csr/<device_name>.csr.pem` . Then, use the modified script to sign it with the CA-intermediate certificate: `./certGen.sh sign_device_certificate <device_name>` .
 - The resulting certificate will be built with the private key of your Arduino, and certificed by the CA Authority (yourself).
 - Setup DPS with the CA-root or CA-intermediate certificate and use the registration sketch.
 
