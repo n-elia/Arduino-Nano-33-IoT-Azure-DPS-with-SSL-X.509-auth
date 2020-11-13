@@ -31,11 +31,11 @@ const int keySlot     = 0;  // Crypto chip slot to pick the key from
 const int certSlot    = 8;  // Crypto chip slot to pick the certificate from
 // ===============================================================================
 
-const char ssid[]           = SECRET_SSID;
-const char pass[]           = SECRET_PASS;
-const char broker[]         = SECRET_BROKER;
-const char idScope[]        = SECRET_ID_SCOPE;
-const char registrationId[] = SECRET_REGISTRATION_ID;
+const char ssid[]     = SECRET_SSID;
+const char pass[]     = SECRET_PASS;
+const char broker[]   = SECRET_BROKER;
+String idScope        = SECRET_ID_SCOPE;
+String registrationId = SECRET_REGISTRATION_ID;
 
 WiFiClient    wifiClient;            // Used for the TCP socket connection
 BearSSLClient sslClient(wifiClient); // Used for SSL/TLS connection, integrates with ECCX08
@@ -90,11 +90,7 @@ void setup() {
   mqttClient.setId(registrationId);
 
   // Set the username to "<idScope>/registrations/<registrationId>/api-version=2019-03-31"
-  String username;
-  username += idScope;
-  username += "/registrations/";
-  username += registrationId;
-  username += "/api-version=2019-03-31";
+  String username = idScope + "/registrations/" + registrationId + "/api-version=2019-03-31";
 
   // Set an empty password (because of X.509 authentication instead of SAS token)
   String password = "";
@@ -136,10 +132,7 @@ void loop() {
   //    "payload": "your additional data goes here. It can be nested JSON."
   //  }
   // (This is a rudimental JSON, you can use ArduinoJSON)
-  String pub_msg = "";
-  pub_msg += "{\"registrationId\":\"}";
-  pub_msg += registrationId;
-  pub_msg += "\"}";
+  String pub_msg = "{\"registrationId\":\"}" + registrationId + "\"}";
 
   // Publish the message for requesting the device registration
   publishMessage(pub_topic, pub_msg);
@@ -216,3 +209,17 @@ void hangHere() {
     mqttClient.poll();
   }
 }
+
+// Sample output on Serial monitor:
+//10:40:12.491 -> Using the certificate from secrets.h...
+//10:40:13.378 -> Attempting to connect to SSID: Home&Life SuperWiFi-2FD1 .
+//10:40:20.951 -> You're connected to the network
+//10:40:20.951 ->
+//10:40:20.951 -> Attempting to connect to MQTT broker: global.azure-devices-provisioning.net
+//10:40:26.413 -> connectError: -2
+//10:40:31.702 -> connectError: -2
+//10:40:35.783 ->
+//10:40:35.783 -> You're connected to the MQTT broker
+//10:40:35.783 ->
+//10:40:35.830 -> Publishing message
+//10:40:36.298 -> Received a message with topic '$dps/registrations/res/202/?$rid=1&retry-after=3'{"operationId":"***","status":"assigning"}
