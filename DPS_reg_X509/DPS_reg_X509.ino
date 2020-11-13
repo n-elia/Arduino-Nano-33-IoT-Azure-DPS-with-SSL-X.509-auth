@@ -56,6 +56,7 @@ void setup() {
 
   // ================ SSL SETUP ================
   if (self_signed_cert) {
+    Serial.println("Loading the self-signed certificate from ECCX08...");
     // Reconstruct the self signed cert
     ECCX08SelfSignedCert.beginReconstruction(keySlot, certSlot);
     // In case of self-signed certificate with ECCX08SelfSignedCert.ino, the ECCX08
@@ -63,8 +64,7 @@ void setup() {
     ECCX08SelfSignedCert.setCommonName(ECCX08.serialNumber());
     ECCX08SelfSignedCert.endReconstruction();
   } else if (!self_signed_cert) {
-    // Load the CA signed cert from secrets.h
-    // const char client_cert[] = CLIENT_CERT;
+    Serial.println("Using the certificate from secrets.h...");
   }
 
   // Set a callback to get the current time
@@ -82,7 +82,6 @@ void setup() {
   } else if (!self_signed_cert) {
     sslClient.setEccSlot(
       keySlot,
-      // client_cert);
       CLIENT_CERT);
   }
 
