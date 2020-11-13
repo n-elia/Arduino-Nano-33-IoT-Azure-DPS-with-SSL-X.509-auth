@@ -7,7 +7,7 @@
  - Read [this](https://docs.microsoft.com/en-us/azure/iot-dps/concepts-service#enrollment) before doing anything related to DPS and Arduino.
  - Use the `ECCX08SelfSignedCert.ino` example sketch from the ECCX08 Library to issue a private key and a self-signed device certificate (remember the selected crypto chip slots for putting them in the DPS registration sketch).
  - Use the `ECCX08CSR.ino` example sketch from the ECCX08 Library to issue a Certificate Signing Request (CSR), copy it and paste into a .pem file.
- - Use [this](https://github.com/Azure/azure-iot-sdk-c/blob/master/tools/CACertificates/CACertificateOverview.md) toolkit to create CA-root certificate, intermediate certificate. 
+ - Use [this](https://github.com/Azure/azure-iot-sdk-c/blob/master/tools/CACertificates/CACertificateOverview.md) toolkit to create CA-root certificate, intermediate certificate. The device certificate must satisfy [these](https://docs.microsoft.com/en-us/azure/iot-dps/concepts-x509-attestation#end-entity-leaf-certificate) requirements.
  - Then use this `certGen.sh` script instead of the original one:
 ```
  #!/bin/bash
