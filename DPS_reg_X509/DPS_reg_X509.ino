@@ -1,18 +1,18 @@
 /*
- * Azure IoT Device Provisioning Service registration tool
- * This sketch securely connects to an Azure IoT DPS using MQTT over WiFi,
- * secured by SSl. 
- * It uses a private key stored in the built-in crypto chip and a CA signed 
- * public certificate for SSL/TLS authetication.
- * 
- * It subscribes to a DPS topic to receive the response, and publishes a message
- * to stard the device enrollment.
- * 
- * Boards:
- * - Arduino Nano 33 IoT
- * 
- * Author: Nicola Elia
- * GNU General Public License v3.0
+   Azure IoT Device Provisioning Service registration tool
+   This sketch securely connects to an Azure IoT DPS using MQTT over WiFi,
+   secured by SSl.
+   It uses a private key stored in the built-in crypto chip and a CA signed
+   public certificate for SSL/TLS authetication.
+
+   It subscribes to a DPS topic to receive the response, and publishes a message
+   to stard the device enrollment.
+
+   Boards:
+   - Arduino Nano 33 IoT
+
+   Author: Nicola Elia
+   GNU General Public License v3.0
 */
 
 #include <ArduinoBearSSL.h>
@@ -55,31 +55,31 @@ void setup() {
   }
 
   // ================ SSL SETUP ================
+  // Set a callback to get the current time
+  // (used to validate the servers certificate)
+  ArduinoBearSSL.onGetTime(getTime);
+
   if (self_signed_cert) {
     Serial.println("Loading the self-signed certificate from ECCX08...");
     // Reconstruct the self signed cert
     ECCX08SelfSignedCert.beginReconstruction(keySlot, certSlot);
     // In case of self-signed certificate with ECCX08SelfSignedCert.ino, the ECCX08
-    // crypto chip serial number is used as CN. Otherwise, change it here.
+    // crypto chip serial number is used as CN by default. Otherwise, change it here.
     ECCX08SelfSignedCert.setCommonName(ECCX08.serialNumber());
     ECCX08SelfSignedCert.endReconstruction();
-  } else if (!self_signed_cert) {
-    Serial.println("Using the certificate from secrets.h...");
-  }
 
-  // Set a callback to get the current time
-  // (used to validate the servers certificate)
-  ArduinoBearSSL.onGetTime(getTime);
-
-  // Set the ECCX08 slot to use for the private key
-  // and the accompanying public certificate for it
-  if (self_signed_cert) {
+    // Instruct the SSL client to use the chosen ECCX08 slot for picking the private key
+    // and set the reconstructed certificate as accompanying public certificate.
     sslClient.setEccSlot(
       keySlot,
       ECCX08SelfSignedCert.bytes(),
       ECCX08SelfSignedCert.length()
     );
   } else if (!self_signed_cert) {
+    Serial.println("Using the certificate from secrets.h...");
+
+    // Instruct the SSL client to use the chosen ECCX08 slot for picking the private key
+    // and set the hardcoded certificate as accompanying public certificate.
     sslClient.setEccSlot(
       keySlot,
       CLIENT_CERT);
