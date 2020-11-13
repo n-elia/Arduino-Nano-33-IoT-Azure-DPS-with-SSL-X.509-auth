@@ -25,7 +25,7 @@
 
 // ================================== SETTINGS ===================================
 // Set self_signed_cert to true for using the crypto chip stored certificate
-// Set self_signed_cert to false to use the hardcoded certificate
+// Set self_signed_cert to false to use an hardcoded certificate
 bool self_signed_cert = false;
 const int keySlot     = 0;  // Crypto chip slot to pick the key from
 const int certSlot    = 8;  // Crypto chip slot to pick the certificate from
@@ -138,7 +138,7 @@ void loop() {
   //  }
   // (This is a rudimental JSON, you can use ArduinoJSON)
   String pub_msg = "";
-  pub_msg  = "{\"registrationId\":\"}";
+  pub_msg += "{\"registrationId\":\"}";
   pub_msg += registrationId;
   pub_msg += "\"}";
 
