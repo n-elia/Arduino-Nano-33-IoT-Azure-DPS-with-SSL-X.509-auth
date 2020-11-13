@@ -84,13 +84,13 @@ void setup() {
       keySlot,
       CLIENT_CERT);
   }
-  
+
   /*
-   * Note: I prefer to use BearSSLClient::setEccSlot because it contains a function to decode
-   * the .pem certificate (the hardcoded certificate can be stored in base64, instead of
-   * converting it to binary), and it automatically computes the certificate length.
-   */
-   
+     Note: I prefer to use BearSSLClient::setEccSlot because it contains a function to decode
+     the .pem certificate (the hardcoded certificate can be stored in base64, instead of
+     converting it to binary), and it automatically computes the certificate length.
+  */
+
   // ================ MQTT Client SETUP ================
   // Set the client id used for MQTT as the registrationId
   mqttClient.setId(registrationId);
