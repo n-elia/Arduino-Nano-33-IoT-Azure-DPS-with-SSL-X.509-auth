@@ -1,5 +1,5 @@
 # Arduino Nano 33 IoT Azure DPS with SSL X.509 auth
- Sketch to connect an Arduino Nano 33 IoT to the Azure IoT Device Provisioning Service over WiFi with an SSL-secured connection, and authentication based on X.509 certificates.
+ Sketch to connect an Arduino Nano 33 IoT to the Azure IoT Device Provisioning Service over WiFi with an SSL-secured connection, and authentication based on X.509 certificates. This sketch uses direct MQTT connection to azure services.
  
  It will always use the private key created and stored by the crypto chip of the Arduino Nano 33 IoT, and the self-signed certificate (individual enrollment) or the self-signed certificate signed by the CA-root certificate (group enrollment).
  
