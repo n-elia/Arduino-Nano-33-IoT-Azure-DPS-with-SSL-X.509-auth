@@ -464,6 +464,7 @@ warn_certs_not_for_production
 - Setup DPS with the CA-root or CA-intermediate certificate and use the registration sketch.
 - You can use Mosquitto or MQTT Explorer to test your certificate and parameters before moving to the Arduino.
  The sketch is well-commented, I'll write a better readme in the future if I have time :)
+- You can find the sketch to authorize the same device with SAS tokens in my repos.
  
 ## Some warnings
 - Remember to add the Baltimore CA-root certificate to your WiFiNINA module, otherwise your Arduino won't be able to properly identify the Azure servers. [Here](https://support.arduino.cc/hc/en-us/articles/360016119219-How-to-add-certificates-to-Wifi-Nina-Wifi-101-Modules-) is the official tutorial for that.
